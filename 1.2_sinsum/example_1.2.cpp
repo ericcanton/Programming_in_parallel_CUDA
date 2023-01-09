@@ -1,12 +1,12 @@
 /*
-    Example 1.1, compute integral of sin(x) over 0 <= x <= pi, via trapezoid rule and Taylor approximation.
-    Version 1: uses a single CPU thread.
+    Example 1.2, compute integral of sin(x) over 0 <= x <= pi, via trapezoid rule and Taylor approximation.
+    Version 2: uses multiple CPU threads via OpenMP.
 */
 
-// #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
-// #include "cxtimers.h"
+#include "cxtimers.h"
 
 inline float sinsum(float x, int terms) {
     float term = x;
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     double pi = 3.14159265358979323;
     double step_size = pi/(steps - 1);
 
-    // cx::timer timr;
+    cx::timer timr;
     double omp_sum = 0.0;
 
     #pragma omp parallel for reduction (+:omp_sum)
@@ -38,12 +38,12 @@ int main(int argc, char *argv[]) {
         float x = step_size * step;
         omp_sum += sinsum(x, terms); // Sum of Taylor series
     }
-    double omp_time = -1.0; //timr.lap_ms();
+    double omp_time = timr.lap_ms();
 
     // Trapezoid rule correction
     omp_sum -= 0.5 * (sinsum(0.0, terms) + sinsum(pi, terms));
     omp_sum *= step_size;
-    // printf("ompg sum = %.10f\n threads: %d\n steps: %d\n terms %d\n time: %.3f ms\n",
-    //         omp_sum, threads, steps, terms, omp_time);
+    printf("omp sum = %.10f\n threads: %d\n steps: %d\n terms %d\n time: %.3f ms\n",
+            omp_sum, threads, steps, terms, omp_time);
     return 0;
 }

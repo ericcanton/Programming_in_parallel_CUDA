@@ -1,21 +1,18 @@
 {
     "configurations": [
         {
-            "name": "Mac",
+            "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/Users/eric/Engineering/GitHub/CUDA-Programs/include/",
-                "/opt/homebrew/Cellar/libomp/15.0.6/include"
+                "${HOME}/Engineering/GitHub/RichardAns/CUDA-Programs/include",
+                "/usr/include/c++/11",
+                "/usr/include/x86_64-linux-gnu/c++/11"
             ],
             "defines": [],
-            "macFrameworkPath": [
-                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
-            ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "macos-clang-arm64",
-            "compilerArgs": []
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-clang-x64"
         }
     ],
     "version": 4
